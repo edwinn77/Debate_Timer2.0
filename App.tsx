@@ -132,8 +132,9 @@ const App: React.FC = () => {
                   style={{ backgroundImage: `url(${activeBackgroundImage})` }}
                 />
                 {/* Dark Overlay for readability */}
-                <div className={`absolute inset-0 z-0 backdrop-blur-[2px] transition-colors duration-500 ${isCompetitionTheme ? 'bg-slate-900/60' : 'bg-slate-950/80'
-                  }`} />
+                {!isCompetitionTheme && (
+                  <div className="absolute inset-0 z-0 bg-blue-900/60 backdrop-blur-[4px] transition-colors duration-500" />
+                )}
               </>
             )}
 
