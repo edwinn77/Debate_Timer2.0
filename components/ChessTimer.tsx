@@ -173,7 +173,7 @@ export const ChessTimer: React.FC<ChessTimerProps> = ({ initialTime }) => {
       </div>
 
       {/* Central Controls */}
-      <div className="h-24 bg-slate-900 border-t border-slate-800 flex items-center justify-center gap-6 px-4">
+      <div className="pt-2 pb-4 flex items-center justify-center gap-6 px-4">
 
         <Button variant="secondary" onClick={handleReset}>
           <RotateCcw className="w-5 h-5 mr-2" /> 重置

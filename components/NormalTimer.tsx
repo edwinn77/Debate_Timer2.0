@@ -90,7 +90,7 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
   return (
     <div className="flex flex-col items-center justify-center space-y-12 h-full w-full py-8">
       <div className="flex flex-col items-center space-y-4">
-        <h2 className="text-slate-400 text-xl font-medium uppercase tracking-widest">
+        <h2 className="text-white text-xl font-medium uppercase tracking-widest">
           {speakerLabel || "当前发言"}
         </h2>
         <TimerDisplay milliseconds={remaining} isLowTime={remaining < 30000 && remaining > 0} />
