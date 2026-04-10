@@ -23,6 +23,7 @@ const App: React.FC = () => {
   const [competitionName, setCompetitionName] = useState<string>('');
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [isCompetitionTheme, setIsCompetitionTheme] = useState(false);
+  const [activeTemplateId, setActiveTemplateId] = useState<string | null>(null);
 
   const currentRound = rounds[currentRoundIndex];
 
@@ -141,10 +142,7 @@ const App: React.FC = () => {
                     }`}
                   style={{ backgroundImage: `url(${activeBackgroundImage})` }}
                 />
-                {/* Dark Overlay for readability */}
-                {!isCompetitionTheme && (
-                  <div className="absolute inset-0 z-0 bg-blue-900/60 backdrop-blur-[4px] transition-colors duration-500" />
-                )}
+                {/* Dark Overlay for readability removed as requested */}
               </>
             )}
 
@@ -313,10 +311,12 @@ const App: React.FC = () => {
               )}
 
               {/* Timer Component Render */}
-              <div className={`flex-1 flex relative justify-center items-center p-4 ${isCompetitionTheme ? 'py-8' : ''}`}>
-                <div className={`w-full max-w-6xl transition-all duration-500 ${isCompetitionTheme
-                  ? 'bg-slate-800/50 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-700/50 p-8 md:p-12'
-                  : ''
+              <div className={`flex-1 flex relative justify-center items-center p-4 ${activeBackgroundImage ? 'py-8' : ''}`}>
+                <div className={`transition-all duration-500 ${activeBackgroundImage && !(isFlowMode && currentRound ? currentRound.type !== 'NORMAL' : timerMode === TimerMode.CHESS)
+                  ? (activeTemplateId === 'MONASH'
+                    ? 'w-full max-w-[420px] aspect-square bg-slate-800/35 backdrop-blur-md rounded-[2.5rem] shadow-2xl border border-slate-700/35 p-8 flex flex-col justify-center'
+                    : 'w-full max-w-5xl bg-slate-800/35 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-700/35 p-7 md:p-9')
+                  : 'w-full max-w-6xl p-8 md:p-12'
                   }`}>
                   {isFlowMode && currentRound ? (
                     currentRound.type === 'NORMAL' ? (
@@ -347,6 +347,7 @@ const App: React.FC = () => {
             setCompetitionName={setCompetitionName}
             backgroundImage={backgroundImage}
             setBackgroundImage={setBackgroundImage}
+            onTemplateLoaded={setActiveTemplateId}
           />
         )}
       </main>

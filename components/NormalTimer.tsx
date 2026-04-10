@@ -90,31 +90,36 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
   return (
     <div className="flex flex-col items-center justify-center space-y-12 h-full w-full py-8">
       <div className="flex flex-col items-center space-y-4">
-        <h2 className="text-slate-400 text-xl font-medium uppercase tracking-widest">
+        <h2 className="text-white text-xl font-medium uppercase tracking-widest">
           {speakerLabel || "当前发言"}
         </h2>
         <TimerDisplay milliseconds={remaining} isLowTime={remaining < 30000 && remaining > 0} />
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-6">
-        <Button
-          variant="secondary"
-          size="lg"
-          onClick={handleReset}
-          aria-label="重置计时器"
-        >
-          <RotateCcw className="w-6 h-6" />
+      <div className="pt-2 pb-4 flex items-center justify-center gap-6 px-4">
+        <Button variant="secondary" onClick={handleReset}>
+          <RotateCcw className="w-5 h-5 mr-2" /> 重置
         </Button>
 
-        <Button
-          variant={isRunning ? "danger" : "primary"}
-          size="lg"
-          className="w-32 h-20 rounded-2xl"
-          onClick={handleStartPause}
-        >
-          {isRunning ? <Pause className="w-10 h-10" /> : <Play className="w-10 h-10" />}
-        </Button>
+        {!isRunning && remaining === duration ? (
+          <Button variant="primary" size="lg" onClick={handleStartPause} className="w-48">
+            开始计时
+          </Button>
+        ) : (
+          <Button
+            variant={!isRunning ? "primary" : "danger"}
+            size="lg"
+            onClick={handleStartPause}
+            className="w-48"
+          >
+            {!isRunning ? (
+              <><Play className="w-5 h-5 mr-2" /> 继续</>
+            ) : (
+              <><Pause className="w-5 h-5 mr-2" /> 暂停</>
+            )}
+          </Button>
+        )}
       </div>
 
       {/* Settings - Hide predefined buttons if controlled by flow (initialDuration passed) */}
